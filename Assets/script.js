@@ -1,17 +1,33 @@
 /* my appid key  */
 
-let appID = "appid=edf705e3020c7eb275d6596cf76f80e8";
-let weatherCall = "http://api.openweathermap.org/data/2.5/weather?";
-let city = "q=perth"
+let appID = "&appid=edf705e3020c7eb275d6596cf76f80e8";
+const weatherCall = "http://api.openweathermap.org/data/2.5/weather?q=";
+let city = "perth";
+let tempeture;
+let lat;
 
-let testPromise = new Promise(function(resolve,reject)
+
+async function contactWeatherAPI(city)
 {
-    fetch(weatherCall + city + "&" + appID);
-    resolve();
-    reject(error);
-});
 
-testPromise.then(
-    function(value){ console.log(value)}
-    ,function(error) {console.log(error)}
-    );
+try 
+{
+    let report = await fetch(weatherCall + city + "&" + appID);
+    return await report.json();
+
+} 
+
+catch (error)
+{
+    console.log(error);
+}
+
+
+}
+
+async function createWeather()
+{
+    let test = await contactWeatherAPI("perth");
+}
+
+createWeather();
