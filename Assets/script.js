@@ -27,7 +27,9 @@ catch (error)
 
 async function createWeather()
 {
-    let test = await contactWeatherAPI("perth");
+    let test = await contactWeatherAPI("canberra");
+    let divShow = document.getElementById("show");
+    divShow.innerHTML = JSON.stringify(test.coord.lat)
 }
 
 createWeather();
