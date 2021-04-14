@@ -2,7 +2,7 @@ html
 {
 height: 100vh;
 
-/* used CSSgridient.io to create favoured background with rotation of the gradient colors. */
+/* used CSSgridient.io to create favoured background with rotation of the gradient colors to my liking . */
 
 background: rgb(52,142,182);
 background: linear-gradient(225deg, rgba(52,142,182,1) 14%, rgba(108,179,177,1) 62%);
@@ -13,3 +13,4 @@ body
 {
     min-height: 100%;
 }
+
