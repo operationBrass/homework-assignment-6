@@ -1,11 +1,16 @@
-html
-{
-height: 100vh;
-
 /* used CSSgridient.io to create favoured background with rotation of the gradient colors to my liking . */
 
-background: rgb(52,142,182);
-background: linear-gradient(225deg, rgba(52,142,182,1) 14%, rgba(108,179,177,1) 62%);
+:root{
+    --bodyBackground: linear-gradient(225deg, rgba(52,142,182,1) 14%, rgba(108,179,177,1) 62%);
+    --weatherBackground: linear-gradient(225deg, rgb(31, 137, 182) 14%, rgb(27, 138, 134) 62%);
+    --headerBackground: linear-gradient(225deg, rgb(31, 137, 182) 14%, rgb(27, 138, 134) 62%);
+}
+
+html
+{
+
+height: 100vh;
+background: var(--bodyBackground);
 
 }
 
@@ -18,4 +23,51 @@ body
 {
     display:flex;
     justify-content: space-evenly;
+    
+    
+}
+
+
+
+.weatherContainer
+{
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    background: var(--weatherBackground);
+    align-self: flex-end;
+    color: rgba(255, 255, 255, 0.685);
+    
+
+}
+
+.wHeader
+{
+  margin: 0.5em;
+}
+
+#curTemp
+{
+    font-size: 4rem;
+    color: rgba(255, 255, 255, 0.685);
+    margin:.25em;
+}
+.curC
+{
+    color:rgb(0 180 254);
+}
+
+#curIcon
+{
+    width:150px;
+    height: 150px;
+    
+}
+
+.weatherP
+{
+
+    font-size: 2rem;
+    padding: .5em;
+
 }

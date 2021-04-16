@@ -13,16 +13,21 @@
 
 <div class="container">
 
-    <div id="local">
-        <h2> Current Weather </h2>
-        <P id="curTemp"> Todays weather is: </P>
+    <!-- local weather card -->
+    <div class = "weatherContainer">
+        <h2 class="wHeader"> Your Local Weather Report </h2>
+        <P id="curTemp"> </P>
+        <img id="curIcon" src=""> 
+        <p id="curDesc" class="weatherP"></p>
+        <p id="curWind" class="weatherP"> </p>
+        <p id="curHumidity" class="weatherP"></p>
     </div>
 
-    <div> 
+    <div class="weatherContainer"> 
 
         <div> 
 
-        <h2> Map </h2> 
+        <h2> More data </h2> 
 
         </div>
         
@@ -35,9 +40,15 @@
 
 </div>
 
-    <div id="forecast">
-        <h2> 5 Day Outlook </h2>
-    </div>
+<!-- forecast weather card -->
+<div class = "weatherContainer">
+    <h2 class="wHeader"> Your 5 day outlook </h2>
+    <P id="foreTemp"> </P>
+    <img id="foreIcon" src=""> 
+    <p id="forDesc" class="weatherP"></p>
+    <p id="forWind" class="weatherP"> </p>
+    <p id="forHumidity" class="weatherP"></p>
+</div>
 
 <script src="Assets/script.js"></script>
 
