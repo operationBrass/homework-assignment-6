@@ -1,17 +1,15 @@
 /* used CSSgridient.io to create favoured background with rotation of the gradient colors to my liking . */
 
 :root{
-    --bodyBackground: linear-gradient(225deg, rgba(52,142,182,1) 14%, rgba(108,179,177,1) 62%);
+    --bodyBackground: linear-gradient(90deg, rgba(52,142,182,1) 14%, rgb(38, 168, 129) 82%);
     --weatherBackground: linear-gradient(225deg, rgb(31, 137, 182) 14%, rgb(27, 138, 134) 62%);
     --headerBackground: linear-gradient(225deg, rgb(31, 137, 182) 14%, rgb(27, 138, 134) 62%);
 }
 
 html
 {
-
 height: 100vh;
 background: var(--bodyBackground);
-
 }
 
 body
@@ -23,15 +21,17 @@ body
 {
     display:flex;
     flex-wrap: wrap;
-    justify-content: space-evenly;
     min-height: 100vh;
-    
-    
 }
 
+.forecastContainer
+{
+    display:flex;
+    width:100%;
+    align-items: center;
+}
 
-
-.weatherContainer
+.weatherCard
 {
     display:flex;
     flex-direction: column;
@@ -40,7 +40,27 @@ body
     align-self:baseline;
     color: rgba(255, 255, 255, 0.685);
     margin: auto;
+    border:darkblue 1px solid;
+}
 
+#current
+{
+    width:70%;  
+}
+
+
+
+.forecastCard
+{
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    background: var(--weatherBackground);
+    align-self:baseline;
+    color: rgba(255, 255, 255, 0.685);
+    margin: auto;
+    border:darkblue 1px solid;
+   
 }
 
 .wHeader
@@ -73,3 +93,4 @@ body
     padding: .5em;
 
 }
+
