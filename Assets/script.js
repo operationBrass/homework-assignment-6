@@ -167,5 +167,3 @@ function saveHistory(city)
   localStorage.setItem("cities", JSON.stringify(cityBoard));
 
 }
-
-retrieveHistory();
