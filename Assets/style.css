@@ -1,27 +1,37 @@
 /* used CSSgridient.io to create favoured background with rotation of the gradient colors to my liking . */
 
 :root{
-    --bodyBackground: linear-gradient(120deg, rgb(30, 164, 221) 14%, rgb(18, 136, 101) 70%);
-    --weatherBackground: linear-gradient(225deg, rgb(43, 176, 233) 14%, rgb(67, 179, 175) 52%);
-    --headerBackground: linear-gradient(45deg, rgb(13, 202, 236) 40%, rgb(120, 233, 14) 52%);
+    --bodyBackground: linear-gradient(225deg, rgb(16, 171, 238) 44%,rgb(84, 134, 190) 52%);
+    --titleBackground: linear-gradient(225deg, rgb(16, 171, 238) 44%,rgb(84, 134, 190) 52%);
+    --weatherBackground: linear-gradient(225deg, rgb(16, 171, 238) 24%,rgb(84, 134, 190) 52%);
+    --headingTextColor: rgba(255, 255, 255, 0.8);
 }
 
 .title
 {
 
-    background: var(--weatherBackground);
+    background: var(--titleBackground);
+    color:var(--headingTextColor);
 
 }
 
 html
 {
 height: 100vh;
-background: var(--bodyBackground);
+background: url(./images/Download-Free-Weather-Background.jpg);
+background-size: cover;
 }
 
 body
 {
     min-height: 100%;
+}
+
+#searchHeader
+{
+    font-size: 1.5em;
+    margin:0;
+    color: white;
 }
 
 .container 
@@ -39,7 +49,6 @@ body
 {
     display:flex;
     flex-wrap: wrap;
-    align-items:top;
     width: 100%;
     
 }
@@ -57,8 +66,7 @@ body
     background: var(--weatherBackground);
     color: rgba(255, 255, 255, 0.685);
     border:darkblue 1px solid;
-    margin: auto;
-    min-height: 570px;
+    margin-bottom: auto;
     min-width: 360px;
     text-align: center;
 }
@@ -67,9 +75,11 @@ body
 {
     background: var(--weatherBackground);
     color: rgba(255, 255, 255, 0.685);
-    margin: auto;
     border:darkblue 1px solid;
     text-align: center;
+    min-width: 360px;
+    margin: auto;
+    margin-bottom: 20px;
 }
 
 .forecastCard
@@ -96,7 +106,7 @@ body
 
 .curC
 {
-    color:rgb(0 180 254);
+    color:rgba(40, 100, 231, 0.589);
 }
 
 #curIcon
@@ -105,6 +115,7 @@ body
     height: 150px;
     
 }
+
 
 .weatherP
 {
@@ -130,4 +141,13 @@ li
     outline: none;
     font-size: 1.5em;
     margin:10px;
+}
+
+#searchBox
+{
+    width: 250px;
+    height: 30px;
+    font-size: 1.4em;
+    background: rgba(191, 194, 200, 0.589);
+    color: whitesmoke;
 }

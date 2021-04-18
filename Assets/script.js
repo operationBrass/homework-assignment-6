@@ -14,7 +14,9 @@ const currentIcon = document.getElementById("curIcon");
 const currentDesc = document.getElementById("curDesc");
 const citiesList = document.getElementById("citiesList");
 const searchBox = document.getElementById("searchBox");
-const searchBtn = document.getElementById("btnSearch")
+const searchBtn = document.getElementById("btnSearch");
+const resetBtn = document.getElementById("btnReset");
+const listToClear = document.getElementById("citiesList");
 const foreCards = document.getElementsByClassName("forecastCard");
 
 let seachText;
@@ -56,7 +58,7 @@ fetch(endPoint + city  + units + appID)
         tempeture = pData.main.temp;
         low = pData.main.temp_min;
         high = pData.main.temp_max;
-        windSpeed = pData.wind.speed;
+        windSpeed = pData.wind.speed * 3.6;
         humidity = pData.main.humidity;
         lat = "lat=" + pData.coord.lat + "&";
         long = "lon=" + pData.coord.lon;
@@ -65,6 +67,7 @@ fetch(endPoint + city  + units + appID)
         tempeture = tempeture.toFixed(1);
         low = low.toFixed(1);
         high = high.toFixed(1);
+        windSpeed = windSpeed.toFixed(1);
 
         /*daily weather report created here before i realized the one call only takes lat and lon */
 
@@ -72,7 +75,7 @@ fetch(endPoint + city  + units + appID)
         currentDesc.innerHTML = desc;
         currentTemp.innerHTML = tempeture + "°" + "<span class='curC'>C</span>";
         highlow.innerHTML = "L: " + low + "°" + "<span class='curC'>C</span>" + " H: " + high + "°" +  "<span class='curC'>C</span>";
-        currentWind.innerHTML = "Wind Speed: " + windSpeed + "  meter/sec";
+        currentWind.innerHTML = "Wind Speed: " + windSpeed + "  km/h";
         currentHumidity.innerHTML = "Humidity: " + humidity + "%";
 
         contactForecastAPI(forecastCall,lat,long,wUnits,appID);
@@ -112,10 +115,11 @@ fetch(endPoint + lat + long + units + appID)
         tempeture = pData.daily[i].temp.day
         high = pData.daily[i].temp.max;
         low = high = pData.daily[i].temp.max;
+        windSpeed = pData.daily[i].wind_speed * 3.6;
         tempeture = tempeture.toFixed(1);
         low = low.toFixed(1);
         high = high.toFixed(1);
-        windSpeed = pData.daily[i].wind_speed;
+        windSpeed = windSpeed.toFixed(1);
         humidity = pData.daily[i].humidity; 
         desc = pData.daily[i].weather[0].description;
         weatherIcon = iconURL + pData.daily[i].weather[0].icon + "@2x.png";
@@ -125,7 +129,7 @@ fetch(endPoint + lat + long + units + appID)
         childrenData[2].innerHTML = "L: " + low + "°" + "<span class='curC'>C</span>" + " H: " + high + "°" +  "<span class='curC'>C</span>";
         childrenData[3].setAttribute("src", weatherIcon);
         childrenData[4].textContent = desc;
-        childrenData[5].textContent = "Wind Speed: " + windSpeed + "  meter/sec";
+        childrenData[5].textContent = "Wind Speed: " + windSpeed + "  km/h";
         childrenData[6].textContent = "Humidity: " + humidity + "%";
         }
         writeElement(searchBox.value)
@@ -141,3 +145,10 @@ function writeElement(textToWrite)
   citiesList.appendChild(listEl);
 }
 
+  resetBtn.addEventListener("click", function(){
+    localStorage.clear()
+    // As long as <ul> has a child node, remove it
+    while (listToClear.hasChildNodes()) {  
+    listToClear.removeChild(listToClear.firstChild);
+    }
+  });

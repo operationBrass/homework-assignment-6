@@ -16,18 +16,18 @@
         <h1 class="title"> Weather Dashboard </h1>
     </header>
 
-   <div class="currentSearch"> 
-        <div id="search" class="searchCard"> 
-            <h2> Search by City </h2> 
-            <form>
-                <input id="searchBox" type="text">
-            </form>
-            <button id="btnSearch"> Search  </button>
-            <button id="btnReset"> Reset  </button>
-            <ul id="citiesList">
+<div class="currentSearch"> 
 
-            </ul>
-        </div>  
+    <div id="search" class="searchCard"> 
+        <h2 id="searchHeader"> City Search </h2> 
+        <form>
+            <input id="searchBox" type="text">
+        </form>
+        <button id="btnSearch"> Search  </button>
+        <button id="btnReset"> Reset  </button>
+        <ul id="citiesList"></ul>
+    </div> 
+   
         <!-- local weather card -->
         <div id="current" class = "weatherCard">
             <h2 class='wHeader'> 
@@ -38,7 +38,11 @@
             <p id='curWind' class='weatherP'> </p>
             <p id='curHumidity' class= 'weatherP'></p>
         </div>
-    </div>
+
+
+
+</div>
+
     <div class="title"> <h1> 5 Day Outlook</h1>  </div>
    
 
