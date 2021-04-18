@@ -18,13 +18,15 @@
 html
 {
 height: 100vh;
-background: url(./images/Download-Free-Weather-Background.jpg);
-background-size: cover;
 }
 
 body
 {
-    min-height: 100%;
+min-height: 100%;
+margin:0;
+padding:0;
+background: url(./images/Download-Free-Weather-Background.jpg);
+background-size: cover;
 }
 
 #searchHeader
@@ -71,15 +73,11 @@ body
     text-align: center;
 }
 
-.weatherCard
+#weatherCard
 {
-    background: var(--weatherBackground);
-    color: rgba(255, 255, 255, 0.685);
-    border:darkblue 1px solid;
-    text-align: center;
+
     min-width: 360px;
-    margin: auto;
-    margin-bottom: 20px;
+ 
 }
 
 .forecastCard

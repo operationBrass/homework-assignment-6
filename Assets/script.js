@@ -6,20 +6,14 @@ const forecastCall = "https://api.openweathermap.org/data/2.5/onecall?";
 const wUnits = "&units=metric";
 const iconURL = "http://openweathermap.org/img/wn/";
 
-const currentTemp = document.getElementById("curTemp");
-const highlow = document.getElementById("highLow");
-const currentWind = document.getElementById("curWind");
-const currentHumidity = document.getElementById("curHumidity");
-const currentIcon = document.getElementById("curIcon");
-const currentDesc = document.getElementById("curDesc");
 const citiesList = document.getElementById("citiesList");
 const searchBox = document.getElementById("searchBox");
 const searchBtn = document.getElementById("btnSearch");
 const resetBtn = document.getElementById("btnReset");
-const listToClear = document.getElementById("citiesList");
 const foreCards = document.getElementsByClassName("forecastCard");
 
-let seachText;
+let searchText;
+let cities = [];
 
 searchBtn.addEventListener("click", function() {
     searchText = searchBox.value;
@@ -32,11 +26,7 @@ searchBtn.addEventListener("click", function() {
 function contactWeatherAPI(endPoint, city, units, appID)
 {
 
-let tempeture;
-let windSpeed;
-let humidity;
-let weatherIcon;
-let desc,lat,long,low,high,avIndex;
+let lat,long;
 
 // using the baseline promise syntax. 
 //Also played around with ASYNC and AWAIT which works just as well.
@@ -48,35 +38,14 @@ fetch(endPoint + city  + units + appID)
         {
             throw new Error; // go to catch 
         }
+
         return data.json();
     })
     .then(function process(pData) {
 
-        console.log(pData)
-        /* daily report setup */
-
-        tempeture = pData.main.temp;
-        low = pData.main.temp_min;
-        high = pData.main.temp_max;
-        windSpeed = pData.wind.speed * 3.6;
-        humidity = pData.main.humidity;
+     
         lat = "lat=" + pData.coord.lat + "&";
         long = "lon=" + pData.coord.lon;
-        desc = pData.weather[0].description;
-        weatherIcon = iconURL + pData.weather[0].icon + "@2x.png";
-        tempeture = tempeture.toFixed(1);
-        low = low.toFixed(1);
-        high = high.toFixed(1);
-        windSpeed = windSpeed.toFixed(1);
-
-        /*daily weather report created here before i realized the one call only takes lat and lon */
-
-        currentIcon.setAttribute("src",weatherIcon);
-        currentDesc.innerHTML = desc;
-        currentTemp.innerHTML = tempeture + "°" + "<span class='curC'>C</span>";
-        highlow.innerHTML = "L: " + low + "°" + "<span class='curC'>C</span>" + " H: " + high + "°" +  "<span class='curC'>C</span>";
-        currentWind.innerHTML = "Wind Speed: " + windSpeed + "  km/h";
-        currentHumidity.innerHTML = "Humidity: " + humidity + "%";
 
         contactForecastAPI(forecastCall,lat,long,wUnits,appID);
     })
@@ -110,20 +79,24 @@ fetch(endPoint + lat + long + units + appID)
 
         /* forecast setup */
 
-        for (i = 1; i < 6; i++)
+        console.log(pData);
+
+        for (i = 0; i < foreCards.length; i++)
         {
-        tempeture = pData.daily[i].temp.day
-        high = pData.daily[i].temp.max;
-        low = high = pData.daily[i].temp.max;
-        windSpeed = pData.daily[i].wind_speed * 3.6;
-        tempeture = tempeture.toFixed(1);
-        low = low.toFixed(1);
-        high = high.toFixed(1);
-        windSpeed = windSpeed.toFixed(1);
-        humidity = pData.daily[i].humidity; 
-        desc = pData.daily[i].weather[0].description;
-        weatherIcon = iconURL + pData.daily[i].weather[0].icon + "@2x.png";
-        childrenData = foreCards[i-1].children;
+       
+            tempeture = pData.daily[i].temp.day
+            high = pData.daily[i].temp.max;
+            low = high = pData.daily[i].temp.max;
+            windSpeed = pData.daily[i].wind_speed * 3.6;
+            tempeture = tempeture.toFixed(1);
+            low = low.toFixed(1);
+            high = high.toFixed(1);
+            windSpeed = windSpeed.toFixed(1);
+            humidity = pData.daily[i].humidity; 
+            desc = pData.daily[i].weather[0].description;
+            weatherIcon = iconURL + pData.daily[i].weather[0].icon + "@2x.png";
+
+        childrenData = foreCards[i].children;
         childrenData[0].textContent = dateTime.getDate() + i + "/" + dateTime.getMonth() ;
         childrenData[1].innerHTML = tempeture + "°" + "<span class='curC'>C</span>";
         childrenData[2].innerHTML = "L: " + low + "°" + "<span class='curC'>C</span>" + " H: " + high + "°" +  "<span class='curC'>C</span>";
@@ -131,8 +104,12 @@ fetch(endPoint + lat + long + units + appID)
         childrenData[4].textContent = desc;
         childrenData[5].textContent = "Wind Speed: " + windSpeed + "  km/h";
         childrenData[6].textContent = "Humidity: " + humidity + "%";
+
         }
-        writeElement(searchBox.value)
+    })
+    .catch(function error(error)
+    {
+        alert("Unable to retrieve weather report. Check your spelling and try again...");
     });
 }
 
@@ -143,12 +120,43 @@ function writeElement(textToWrite)
   var listEl = document.createElement("li");
   listEl.appendChild(document.createTextNode(textToWrite));
   citiesList.appendChild(listEl);
+  saveHistory(textToWrite);
 }
 
   resetBtn.addEventListener("click", function(){
     localStorage.clear()
     // As long as <ul> has a child node, remove it
-    while (listToClear.hasChildNodes()) {  
-    listToClear.removeChild(listToClear.firstChild);
+    while (citiesList.hasChildNodes()) {  
+    citiesList.removeChild(citiesList.firstChild);
     }
   });
+
+  // writing from local 
+
+  function retrieveHistory()
+  {
+    let cityBoard = JSON.parse( localStorage.getItem('cities') );
+
+    if(cityBoard!= null)
+  {
+    for (i=0; i<cityBoard.length; i++)
+    {
+      writeElement(cityBoard[i])
+    }
+  }
+
+}
+
+function saveHistory(city)
+{
+
+if(cities === null)
+  {
+    cities = [];
+  }
+
+  cities.push(city);
+  localStorage.setItem("cities", JSON.stringify(cities));
+}
+
+retrieveHistory();
