@@ -12,16 +12,11 @@ const currentHumidity = document.getElementById("curHumidity");
 const currentIcon = document.getElementById("curIcon");
 const currentDesc = document.getElementById("curDesc");
 
-const forTemp = document.getElementById("forTemp");
-const forWind = document.getElementById("forWind");
-const forHumidity = document.getElementById("forHumidity");
-const forIcon = document.getElementById("forIcon");
-const forDesc = document.getElementById("forDesc");
-
+const foreCards = document.getElementsByClassName("forecastCard")
 
 function contactWeatherAPI(endPoint, city, units, appID)
 {
-
+console.log(foreCards)
 let tempeture;
 let windSpeed;
 let humidity;
@@ -72,6 +67,7 @@ let humidity;
 let avIndex; // not sure how to find yet
 let weatherIcon;
 let desc;
+let childrenData;
 
 // using the baseline promise syntax. 
 //Also played around with ASYNC and AWAIT which works just as well.
@@ -82,25 +78,23 @@ fetch(endPoint + lat + long + units + appID)
     })
     .then(function process(pData) {
 
-        console.log(pData)
         /* forecast setup */
 
         for (i = 1; i < 6; i++)
         {
         tempeture = pData.daily[i].temp.day;
+        tempeture = tempeture.toFixed(1);
         windSpeed = pData.daily[i].wind_speed;
-        humidity = pData.daily[i].humidity;
+        humidity = pData.daily[i].humidity; 
         desc = pData.daily[i].weather[0].description;
         weatherIcon = iconURL + pData.daily[i].weather[0].icon + "@2x.png";
-        tempeture = tempeture.toFixed(1);
 
-        /*daily forecast report */
-
-        forIcon.setAttribute("src",weatherIcon);
-        forDesc.innerHTML = desc;
-        forTemp.innerHTML = tempeture + "°" + "<span class='curC'>C</span>";
-        forWind.innerHTML = "Wind Speed: " + windSpeed + "  meter/sec";
-        forHumidity.innerHTML = "Humidity: " + humidity + "%";
+        childrenData = foreCards[i-1].children;
+        childrenData[1].innerHTML = tempeture + "°" + "<span class='curC'>C</span>";
+        childrenData[2].setAttribute("src", weatherIcon);
+        childrenData[3].textContent = desc;
+        childrenData[4].textContent = "Wind Speed: " + windSpeed + "  meter/sec";
+        childrenData[5].textContent = "Humidity: " + humidity + "%";
         }
     });
 }

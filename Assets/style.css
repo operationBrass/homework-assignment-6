@@ -1,8 +1,8 @@
 /* used CSSgridient.io to create favoured background with rotation of the gradient colors to my liking . */
 
 :root{
-    --bodyBackground: linear-gradient(90deg, rgba(52,142,182,1) 14%, rgb(38, 168, 129) 82%);
-    --weatherBackground: linear-gradient(225deg, rgb(31, 137, 182) 14%, rgb(27, 138, 134) 62%);
+    --bodyBackground: linear-gradient(90deg, rgba(52,142,182,1) 14%, rgb(18, 136, 101) 70%);
+    --weatherBackground: linear-gradient(225deg, rgb(31, 137, 182) 14%, rgb(27, 138, 134) 52%);
     --headerBackground: linear-gradient(225deg, rgb(31, 137, 182) 14%, rgb(27, 138, 134) 62%);
 }
 
@@ -24,43 +24,51 @@ body
     min-height: 100vh;
 }
 
+.currentSearch
+{
+    display:flex;
+    flex-wrap: wrap;
+    align-items:top;
+    width: 100%;
+    
+}
+
+
+
 .forecastContainer
 {
     display:flex;
-    width:100%;
-    align-items: center;
+    flex-wrap: wrap-reverse;
+    width:100%
+}
+
+.searchCard
+{
+    background: var(--weatherBackground);
+    color: rgba(255, 255, 255, 0.685);
+    border:darkblue 1px solid;
+    margin: auto;
+    min-height: 518px;
+    min-width: 360px;
+    text-align: center;
 }
 
 .weatherCard
 {
-    display:flex;
-    flex-direction: column;
-    align-items: center;
     background: var(--weatherBackground);
-    align-self:baseline;
     color: rgba(255, 255, 255, 0.685);
     margin: auto;
     border:darkblue 1px solid;
+    text-align: center;
 }
-
-#current
-{
-    width:70%;  
-}
-
-
 
 .forecastCard
 {
-    display:flex;
-    flex-direction: column;
-    align-items: center;
     background: var(--weatherBackground);
-    align-self:baseline;
     color: rgba(255, 255, 255, 0.685);
     margin: auto;
     border:darkblue 1px solid;
-   
+    text-align: center;
 }
 
 .wHeader
@@ -72,8 +80,9 @@ body
 {
     font-size: 4rem;
     color: rgba(255, 255, 255, 0.685);
-    margin:.25em;
+    margin:0;
 }
+
 .curC
 {
     color:rgb(0 180 254);
@@ -89,8 +98,7 @@ body
 .weatherP
 {
 
-    font-size: 2rem;
-    padding: .5em;
+    font-size: 2em;
 
 }
 
