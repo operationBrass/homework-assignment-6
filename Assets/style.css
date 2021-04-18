@@ -12,6 +12,7 @@
 
     background: var(--titleBackground);
     color:var(--headingTextColor);
+    margin: 20px;
 
 }
 
@@ -60,7 +61,9 @@ background-size: cover;
 {
     display:flex;
     flex-wrap: wrap-reverse;
-    width:100%
+    width:100%;
+   
+   
 }
 
 .searchCard

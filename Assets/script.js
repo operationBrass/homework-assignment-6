@@ -13,20 +13,12 @@ const resetBtn = document.getElementById("btnReset");
 const foreCards = document.getElementsByClassName("forecastCard");
 
 let searchText;
-let cities = [];
-
-searchBtn.addEventListener("click", function() {
-    searchText = searchBox.value;
-    if (searchText != "")
-    {
-        contactWeatherAPI(weatherCall,searchText,wUnits,appID);
-    }
-});
+let cityBoard = JSON.parse( localStorage.getItem('cities') );
 
 function contactWeatherAPI(endPoint, city, units, appID)
 {
 
-let lat,long;
+let lat,long,name;
 
 // using the baseline promise syntax. 
 //Also played around with ASYNC and AWAIT which works just as well.
@@ -46,8 +38,9 @@ fetch(endPoint + city  + units + appID)
      
         lat = "lat=" + pData.coord.lat + "&";
         long = "lon=" + pData.coord.lon;
+        name = pData.name + "," + pData.sys.country;
 
-        contactForecastAPI(forecastCall,lat,long,wUnits,appID);
+        contactForecastAPI(forecastCall,lat,long,wUnits,appID,name);
     })
     .catch(function error(error)
     {
@@ -55,18 +48,17 @@ fetch(endPoint + city  + units + appID)
     });
 }
 
-function contactForecastAPI(endPoint,lat,long, units, appID,)
+function contactForecastAPI(endPoint,lat,long, units, appID,name)
 {
 
 let tempeture;
 let windSpeed;
 let humidity;
-let avIndex; // not sure how to find yet
 let weatherIcon;
 let desc;
 let childrenData;
 let dateTime = new Date();
-let low,high;
+let low,high,uvi;
 
 // using the baseline promise syntax. 
 //Also played around with ASYNC and AWAIT which works just as well.
@@ -95,17 +87,21 @@ fetch(endPoint + lat + long + units + appID)
             humidity = pData.daily[i].humidity; 
             desc = pData.daily[i].weather[0].description;
             weatherIcon = iconURL + pData.daily[i].weather[0].icon + "@2x.png";
+            uvi = pData.daily[i].uvi;
 
         childrenData = foreCards[i].children;
-        childrenData[0].textContent = dateTime.getDate() + i + "/" + dateTime.getMonth() ;
-        childrenData[1].innerHTML = tempeture + "°" + "<span class='curC'>C</span>";
-        childrenData[2].innerHTML = "L: " + low + "°" + "<span class='curC'>C</span>" + " H: " + high + "°" +  "<span class='curC'>C</span>";
-        childrenData[3].setAttribute("src", weatherIcon);
-        childrenData[4].textContent = desc;
-        childrenData[5].textContent = "Wind Speed: " + windSpeed + "  km/h";
-        childrenData[6].textContent = "Humidity: " + humidity + "%";
+        childrenData[0].textContent = name;
+        childrenData[1].textContent = dateTime.getDate()+ "/" + dateTime.getMonth() ;
+        childrenData[2].innerHTML = tempeture + "°" + "<span class='curC'>C</span>";
+        childrenData[3].innerHTML = "L: " + low + "°" + "<span class='curC'>C</span>" + " H: " + high + "°" +  "<span class='curC'>C</span>";
+        childrenData[4].setAttribute("src", weatherIcon);
+        childrenData[5].textContent = desc;
+        childrenData[6].textContent = "Wind Speed: " + windSpeed + "  km/h";
+        childrenData[7].textContent = "Humidity: " + humidity + "%";
+        childrenData[7].textContent = "UV Index: " + uvi + "";
 
         }
+        
     })
     .catch(function error(error)
     {
@@ -113,15 +109,30 @@ fetch(endPoint + lat + long + units + appID)
     });
 }
 
+searchBtn.addEventListener("click", function() {
+  searchText = searchBox.value;
+  if (searchText != "")
+  {
+      contactWeatherAPI(weatherCall,searchText,wUnits,appID);
+      writeElement(searchText);
+  }
+});
+
 contactWeatherAPI(weatherCall,"Perth",wUnits,appID);
 
 function writeElement(textToWrite)
 {
-  var listEl = document.createElement("li");
-  listEl.appendChild(document.createTextNode(textToWrite));
-  citiesList.appendChild(listEl);
-  saveHistory(textToWrite);
-}
+  if(cityBoard == null)
+  {
+   cityBoard = [];
+  }
+      var listEl = document.createElement("li");
+      listEl.appendChild(document.createTextNode(textToWrite));
+      citiesList.appendChild(listEl);
+      saveHistory(textToWrite);
+    
+  }
+
 
   resetBtn.addEventListener("click", function(){
     localStorage.clear()
@@ -135,8 +146,7 @@ function writeElement(textToWrite)
 
   function retrieveHistory()
   {
-    let cityBoard = JSON.parse( localStorage.getItem('cities') );
-
+  
     if(cityBoard!= null)
   {
     for (i=0; i<cityBoard.length; i++)
@@ -144,19 +154,18 @@ function writeElement(textToWrite)
       writeElement(cityBoard[i])
     }
   }
-
 }
 
 function saveHistory(city)
 {
-
-if(cities === null)
+  if(cityBoard == null)
   {
-    cities = [];
+    cityBoard = [];
   }
 
-  cities.push(city);
-  localStorage.setItem("cities", JSON.stringify(cities));
+  cityBoard.push(city);
+  localStorage.setItem("cities", JSON.stringify(cityBoard));
+
 }
 
 retrieveHistory();
