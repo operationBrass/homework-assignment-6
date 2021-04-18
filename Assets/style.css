@@ -1,9 +1,16 @@
 /* used CSSgridient.io to create favoured background with rotation of the gradient colors to my liking . */
 
 :root{
-    --bodyBackground: linear-gradient(90deg, rgba(52,142,182,1) 14%, rgb(18, 136, 101) 70%);
-    --weatherBackground: linear-gradient(225deg, rgb(31, 137, 182) 14%, rgb(27, 138, 134) 52%);
-    --headerBackground: linear-gradient(225deg, rgb(31, 137, 182) 14%, rgb(27, 138, 134) 62%);
+    --bodyBackground: linear-gradient(120deg, rgb(30, 164, 221) 14%, rgb(18, 136, 101) 70%);
+    --weatherBackground: linear-gradient(225deg, rgb(43, 176, 233) 14%, rgb(67, 179, 175) 52%);
+    --headerBackground: linear-gradient(45deg, rgb(13, 202, 236) 40%, rgb(120, 233, 14) 52%);
+}
+
+.title
+{
+
+    background: var(--weatherBackground);
+
 }
 
 html
@@ -20,8 +27,12 @@ body
 .container 
 {
     display:flex;
+    justify-content: center;
+    align-items: center;
     flex-wrap: wrap;
     min-height: 100vh;
+    max-width: 1600px;
+    margin: auto;
 }
 
 .currentSearch
@@ -32,7 +43,6 @@ body
     width: 100%;
     
 }
-
 
 
 .forecastContainer
@@ -48,7 +58,7 @@ body
     color: rgba(255, 255, 255, 0.685);
     border:darkblue 1px solid;
     margin: auto;
-    min-height: 518px;
+    min-height: 570px;
     min-width: 360px;
     text-align: center;
 }
@@ -69,6 +79,7 @@ body
     margin: auto;
     border:darkblue 1px solid;
     text-align: center;
+    font-size: 1.5em;
 }
 
 .wHeader
@@ -102,3 +113,21 @@ body
 
 }
 
+li
+{
+   font-size: 1.5em;
+   text-align: left;
+   list-style-type: none;
+  
+}
+
+#btnSearch, #btnReset
+{
+    cursor: pointer;
+    background: transparent;
+    color: white;
+    border: 1px solid #91C9FF;
+    outline: none;
+    font-size: 1.5em;
+    margin:10px;
+}

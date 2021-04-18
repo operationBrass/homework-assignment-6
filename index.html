@@ -12,36 +12,44 @@
 <body>
 
 <div class="container">
-    <header> 
-
+    <header class="header"> 
+        <h1 class="title"> Weather Dashboard </h1>
     </header>
 
    <div class="currentSearch"> 
         <div id="search" class="searchCard"> 
-            <h2> Weather Search </h2> 
+            <h2> Search by City </h2> 
             <form>
-                <input type="text">
+                <input id="searchBox" type="text">
             </form>
-            <button> Search  </button>
+            <button id="btnSearch"> Search  </button>
+            <button id="btnReset"> Reset  </button>
+            <ul id="citiesList">
+
+            </ul>
         </div>  
         <!-- local weather card -->
         <div id="current" class = "weatherCard">
             <h2 class='wHeader'> 
-            Your Local Weather Report </h2> <P id='curTemp'> </P>
+            Current Weather </h2> <P id='curTemp'> </P>
+            <p id="highLow"></p>
             <img id='curIcon' src=''> 
             <p id='curDesc' class='weatherP'></p>
             <p id='curWind' class='weatherP'> </p>
             <p id='curHumidity' class= 'weatherP'></p>
         </div>
     </div>
-
+    <div class="title"> <h1> 5 Day Outlook</h1>  </div>
+   
 
     <div class = "forecastContainer">
 
+
         <div class='forecastCard'> 
 
             <h2 class='wHeader'> </h2> 
             <P class='forecastP'>  </P>
+            <p class="forecastP"></p>
             <img src=''> 
             <p class='forecastP'></p>
             <p class='forcastP'> </p>
@@ -53,17 +61,7 @@
 
             <h2 class='wHeader'> </h2> 
             <P class='forecastP'>  </P>
-            <img src=''> 
-            <p class='forecastP'></p>
-            <p class='forcastP'> </p>
-            <p class= 'forecastP'></p>
-            
-        </div>
-
-        <div class='forecastCard'> 
-
-            <h2 class='wHeader'> </h2> 
-            <P class='forecastP'>  </P>
+            <p class="forecastP"></p>
             <img src=''> 
             <p class='forecastP'></p>
             <p class='forcastP'> </p>
@@ -75,6 +73,7 @@
 
             <h2 class='wHeader'> </h2> 
             <P class='forecastP'>  </P>
+            <p class="forecastP"></p>
             <img src=''> 
             <p class='forecastP'></p>
             <p class='forcastP'> </p>
@@ -86,6 +85,19 @@
 
             <h2 class='wHeader'> </h2> 
             <P class='forecastP'>  </P>
+            <p class="forecastP"></p>
+            <img src=''> 
+            <p class='forecastP'></p>
+            <p class='forcastP'> </p>
+            <p class= 'forecastP'></p>
+            
+        </div>
+
+        <div class='forecastCard'> 
+
+            <h2 class='wHeader'> </h2> 
+            <P class='forecastP'>  </P>
+            <p class="forecastP"></p>
             <img src=''> 
             <p class='forecastP'></p>
             <p class='forcastP'> </p>
@@ -98,6 +110,7 @@
 
 
     </div>
+    <footer class="footer"> <h2 class="title"> <i>OperationBrass - Brendan Lewis 2021 </i></h2></footer>
 </div>
 
 
