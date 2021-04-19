@@ -13,7 +13,9 @@ const resetBtn = document.getElementById("btnReset");
 const foreCards = document.getElementsByClassName("forecastCard");
 
 let searchText;
-let cityBoard;
+let cityBoard = localStorage.getItem("cities");
+cityBoard = JSON.parse(cityBoard);
+console.log(cityBoard)
 
 function contactWeatherAPI(endPoint, city, units, appID)
 {
@@ -72,9 +74,7 @@ fetch(endPoint + lat + long + units + appID)
 
         /* forecast setup */
 
-        console.log(pData);
-
-        for (i = 0; i < foreCards.length; i++)
+        for (i = 0; i < 6; i++)
         {
        
             tempeture = pData.daily[i].temp.day
@@ -116,6 +116,7 @@ searchBtn.addEventListener("click", function() {
   {
       contactWeatherAPI(weatherCall,searchText,wUnits,appID);
       writeElement(searchText);
+      saveHistory(searchText);
   }
 });
 
@@ -123,14 +124,9 @@ contactWeatherAPI(weatherCall,"Perth",wUnits,appID);
 
 function writeElement(textToWrite)
 {
-  if(cityBoard == null)
-  {
-   cityBoard = [];
-  }
       var listEl = document.createElement("li");
       listEl.appendChild(document.createTextNode(textToWrite));
       citiesList.appendChild(listEl);
-      saveHistory(textToWrite);
     
   }
 
@@ -150,6 +146,7 @@ function writeElement(textToWrite)
     cityBoard = localStorage.getItem("cities");
     cityBoard = JSON.parse(cityBoard);
     console.log(cityBoard)
+
     if(cityBoard != null)
     {
     for (i=0; i<cityBoard.length; i++)
@@ -164,10 +161,12 @@ function writeElement(textToWrite)
 
 function saveHistory(city)
 {
-
+  if(cityBoard == null)
+  {
+    cityBoard = new Array();
+  }
   cityBoard.push(city);
   localStorage.setItem("cities", JSON.stringify(cityBoard));
-
 }
 
 retrieveHistory();
