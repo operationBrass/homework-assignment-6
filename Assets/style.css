@@ -28,6 +28,7 @@ margin:0;
 padding:0;
 background: url(./images/Download-Free-Weather-Background.jpg);
 background-size: cover;
+max-height: 100%;
 }
 
 #searchHeader
