@@ -13,7 +13,7 @@ const resetBtn = document.getElementById("btnReset");
 const foreCards = document.getElementsByClassName("forecastCard");
 
 let searchText;
-let cityBoard = JSON.parse( localStorage.getItem('cities') );
+let cityBoard;
 
 function contactWeatherAPI(endPoint, city, units, appID)
 {
@@ -67,6 +67,7 @@ fetch(endPoint + lat + long + units + appID)
     .then(function response(data) {
         return data.json();
     })
+    
     .then(function process(pData) {
 
         /* forecast setup */
@@ -146,24 +147,29 @@ function writeElement(textToWrite)
 
   function retrieveHistory()
   {
-  
-    if(cityBoard!= null)
-  {
+    cityBoard = localStorage.getItem("cities");
+    cityBoard = JSON.parse(cityBoard);
+    console.log(cityBoard)
+    if(cityBoard != null)
+    {
     for (i=0; i<cityBoard.length; i++)
     {
       writeElement(cityBoard[i])
     }
+  
   }
+
 }
+
 
 function saveHistory(city)
 {
-  if(cityBoard == null)
-  {
-    cityBoard = [];
-  }
 
   cityBoard.push(city);
   localStorage.setItem("cities", JSON.stringify(cityBoard));
 
 }
+
+retrieveHistory();
+
+
