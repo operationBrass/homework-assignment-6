@@ -92,7 +92,7 @@ fetch(endPoint + lat + long + units + appID)
 
         childrenData = foreCards[i].children;
         childrenData[0].textContent = name;
-        childrenData[1].textContent = dateTime.getDate()+ "/" + dateTime.getMonth() ;
+        childrenData[1].textContent = (dateTime.getDate() + i) + "/" + dateTime.getMonth() ;
         childrenData[2].innerHTML = tempeture + "°" + "<span class='curC'>C</span>";
         childrenData[3].innerHTML = "L: " + low + "°" + "<span class='curC'>C</span>" + " H: " + high + "°" +  "<span class='curC'>C</span>";
         childrenData[4].setAttribute("src", weatherIcon);
